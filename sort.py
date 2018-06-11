@@ -32,7 +32,7 @@ def insertion_sort(seq):
                 seq[i-1] = tmp
                 i = i - 1
                 
-#快速排序：
+#4 快速排序：
 def QuickSort(myList,start,end):
     #判断low是否小于high,如果为false,直接返回
     if start < end:
