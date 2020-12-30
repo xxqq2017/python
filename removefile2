@@ -1,0 +1,46 @@
+import os, re
+
+# 扫描目录
+class ScanFile(object):
+    def __init__(self, directory, prefix=None, postfix=None):
+        self.directory = directory
+        self.prefix = prefix
+        self.postfix = postfix
+
+    def scan_files(self):
+        files_list = []
+
+        for dirpath, dirnames, filenames in os.walk(self.directory):
+            for special_file in filenames:
+                if self.postfix:
+                    special_file.endswith(self.postfix)
+                    files_list.append(os.path.join(dirpath, special_file))
+                elif self.prefix:
+                    special_file.startswith(self.prefix)
+                    files_list.append(os.path.join(dirpath, special_file))
+                else:
+                    files_list.append(os.path.join(dirpath, special_file))
+        return files_list
+
+    # 扫描子目录
+    def scan_subdir(self):
+        subdir_list = []
+        for dirpath, dirnames, files in os.walk(self.directory):
+            subdir_list.append(dirpath)
+        return subdir_list
+
+def rename(self):
+    scan = ScanFile(sourcepath)
+    files = scan.scan_files()
+    for file in files:
+        try:
+            newfile = re.sub(u"\\[.*?\\]", "", file)  # 清除[]及里面的内容
+            os.rename(file, newfile)  # 得到新文件名
+            print(newfile)
+        except:
+            continue
+
+
+if __name__ == "__main__":
+    sourcepath = input("enter the path will to rename all files:")
+    rename(sourcepath)
